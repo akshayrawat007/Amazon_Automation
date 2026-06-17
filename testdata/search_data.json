@@ -1,0 +1,21 @@
+{
+  "deal_categories":
+  [
+      "Electronics",
+      "Video Games"
+  ],
+  "search_products": [
+    {
+        "keyword": "ps5 games",
+        "min_options": 12
+    },
+    {
+        "keyword": "headphones",
+        "min_options": 10
+    },
+    {
+        "keyword": "smartwatch",
+        "min_options": 15
+    }
+  ]
+}

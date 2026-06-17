@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from config.config import DEALS_URL
+import allure
 
 
 class DealsPage(BasePage):
@@ -8,10 +9,12 @@ class DealsPage(BasePage):
     DEAL_CARDS = (By.XPATH, "//div[@data-csa-c-item-type='deal']")
     CATEGORY_FILTER = (By.XPATH,"//div[contains(@class,'Carousel-module__carousel')]//button")
 
+    @allure.step("Navigating to deals page")
     def open_deals_page(self):
         self.log_step("Opening deals page of Amazon Website")
         self.driver.get(DEALS_URL)
 
+    @allure.step("Validate deal counts")
     def get_deals_count(self):
         self.log_step("Getting deals count")
         count = self.get_elements_count(self.DEAL_CARDS)
@@ -19,6 +22,7 @@ class DealsPage(BasePage):
             self.log_error("No deals found on page")
         return count
 
+    @allure.step("Filter products by category")
     def filter_by_category(self, category_name):
         self.log_step(f"Filtering deals by category: {category_name}")
         filters = self.find_elements(self.CATEGORY_FILTER)

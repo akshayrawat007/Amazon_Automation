@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pages.deals_page import DealsPage
 from pages.search_page import SearchPage
@@ -13,7 +14,8 @@ class TestDeals:
         deals_page = DealsPage(driver)
         deals_page.open_deals_page()
         count = deals_page.get_deals_count()
-        assert count > 0, "Deals page should display at least one deal"
+        with allure.step("Validating deals"):
+            assert count > 0, "Deals page should display at least one deal"
 
     @pytest.mark.regression
     def test_validate_products_minimum_results(self, driver):

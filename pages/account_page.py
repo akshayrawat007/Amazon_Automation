@@ -1,5 +1,6 @@
 from time import sleep
 
+import allure
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from dotenv import load_dotenv
@@ -14,6 +15,7 @@ class AccountPage(BasePage):
     START_TRIAL = (By.ID,'plp-hero-cta')
     PAYMENT_METHOD = (By.XPATH,"//h1[normalize-space()='Select a payment method']")
 
+    @allure.step("Validate prime membership")
     def account_details_prime_membership(self):
         self.log_step("Checking prime membership")
         message = self.find_element(self.TOAD_MESSAGE).text

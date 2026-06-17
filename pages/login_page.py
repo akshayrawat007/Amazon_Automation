@@ -1,11 +1,11 @@
 import os
-from time import sleep
 
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
 from dotenv import load_dotenv
 load_dotenv()
+import allure
 
 class LoginPage(BasePage):
     HELLO_SIGN_IN = (By.CLASS_NAME,'nav-line-1-container')
@@ -20,6 +20,7 @@ class LoginPage(BasePage):
     ACCOUNT= (By.LINK_TEXT,'Your Account')
 
 
+    @allure.step("Login operation in amazon")
     def account_login(self):
         self.log_step(f"Login process started")
         self.wait.explicit_wait(self.HELLO_SIGN_IN,condition="clickable")

@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 import logging
-
+import allure
 logger = logging.getLogger(__name__)
 
 
@@ -13,12 +13,14 @@ class SearchPage(BasePage):
     ADD_TO_CART_BUTTON = (By.ID, "add-to-cart-button")
     SUCCESS_ADD_TO_CART = (By.XPATH,"//h1[normalize-space()='Added to cart']")
 
+    @allure.step("Search for a product i.e {product_name}")
     def search_product(self, product_name):
         self.log_step(f"Searching for product: {product_name}")
         self.send_keys(self.SEARCH_BOX, product_name)
         self.click_element(self.SEARCH_BUTTON)
         self.log_step("Search completed")
 
+    @allure.step("Get search results count")
     def get_search_results_count(self):
         try:
             results = self.find_elements(self.SEARCH_RESULTS)
@@ -42,6 +44,7 @@ class SearchPage(BasePage):
             logger.error(f"Failed to click first product: {str(e)}")
             raise
 
+    @allure.step("Add product to cart123")
     def add_to_cart(self):
         self.log_step("Adding product to cart")
         try:

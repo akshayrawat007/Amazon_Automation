@@ -1,9 +1,8 @@
-import os
+import allure
 
 import pytest
 from selenium import webdriver
 from dotenv import load_dotenv
-from pytest_html import extras
 
 from utilities.screenshot_manager import ScreenshotManager
 
@@ -43,6 +42,9 @@ def pytest_runtest_makereport(item, call):
     if report.when == "call" and report.failed:
         driver = item.funcargs["driver"]
         screenshot_path = ScreenshotManager.capture_screenshot_on_failure(driver, item.nodeid)
-        relative_path = os.path.relpath(screenshot_path, "reports")
-        report.extras = getattr(report, "extras", [])
-        report.extras.append(extras.image(relative_path))
+        if screenshot_path:
+            allure.attach.file(
+                screenshot_path,
+                name=f"{item.name}_failure_ss",
+                attachment_type=allure.attachment_type.PNG
+            )

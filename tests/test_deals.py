@@ -3,7 +3,6 @@ import pytest
 from pages.deals_page import DealsPage
 from pages.search_page import SearchPage
 from config.config import BASE_URL, load_test_data, DEALS_URL
-from utilities.screenshot_manager import ScreenshotManager
 
 
 class TestDeals:

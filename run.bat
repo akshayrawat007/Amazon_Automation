@@ -8,6 +8,7 @@ echo.
 if not exist reports mkdir reports
 if not exist screenshots mkdir screenshots
 if not exist logs mkdir logs
+if not exist reports\allure-results mkdir reports\allure-results
 
 echo Select test suite to run:
 echo.
@@ -32,35 +33,42 @@ if "%choice%"=="6" goto EXIT
 echo.
 echo Running ALL tests...
 pytest tests/
-goto END
+goto REPORT
 
 :SANITY
 echo.
 echo Running SANITY tests...
 pytest tests/ -m sanity
-goto END
+goto REPORT
 
 :REGRESSION
 echo.
 echo Running REGRESSION tests...
 pytest tests/ -m regression
-goto END
+goto REPORT
 
 :SMOKE
 echo.
 echo Running SMOKE tests...
 pytest tests/ -m smoke
-goto END
+goto REPORT
 
 :LOGIN
 echo.
 echo Running LOGIN Data Driven tests...
 pytest tests/test_google_sheet_driven_login.py
-goto END
+goto REPORT
 
 :EXIT
 echo Exiting...
 exit /b
+
+:REPORT
+echo.
+echo Generating Allure Report...
+allure generate reports/allure-results --clean -o reports/allure-report
+allure open reports/allure-report
+goto END
 
 :END
 echo.
@@ -68,8 +76,8 @@ echo ==========================================
 echo    TEST EXECUTION COMPLETED
 echo ==========================================
 echo.
-echo Reports      reports/report.html
-echo Logs         logs/test_execution.log
-echo Screenshots  screenshots/
+echo Allure Report  → reports/allure-report/index.html
+echo Logs           → logs/test_execution.log
+echo Screenshots    → screenshots/
 echo.
 pause

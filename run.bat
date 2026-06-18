@@ -56,7 +56,7 @@ goto REPORT
 :LOGIN
 echo.
 echo Running LOGIN Data Driven tests...
-pytest tests/test_google_sheet_driven_login.py
+pytest tests/test_dummy.py
 goto REPORT
 
 :EXIT

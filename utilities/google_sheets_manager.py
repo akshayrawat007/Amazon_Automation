@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from config.config import GOOGLE_CREDENTIALS_DATA, GOOGLE_SHEET_ID
+from config.config import GOOGLE_SERVICE_ACCOUNT, GOOGLE_SHEET_ID
 import logging
 
 logger = logging.getLogger(__name__)
@@ -14,7 +14,7 @@ SCOPES = [
 class GoogleSheetUtils:
 
     def __init__(self):
-        creds = Credentials.from_service_account_file(GOOGLE_CREDENTIALS_DATA, scopes=SCOPES)
+        creds = Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
         client = gspread.authorize(creds)
         self.spreadsheet = client.open_by_key(GOOGLE_SHEET_ID)
         logger.info(f"Connected to Google Sheet: {self.spreadsheet.title}")

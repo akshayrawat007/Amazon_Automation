@@ -39,7 +39,7 @@ stages {
     stage('Prepare Environment') {
         steps {
             withCredentials([
-                file(credentialsId: 'amazon-env-file', variable: 'ENV_FILE')
+                file(credentialsId: 'amazon-env-file', variable: 'ENV_FILE'),
                 file(credentialsId: 'GOOGLE_SERVICE_ACCOUNT', variable: 'GOOGLE_JSON')
             ]) {
                 bat 'copy "%ENV_FILE%" .env'
